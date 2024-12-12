@@ -4,15 +4,35 @@ Command: npx gltfjsx@6.5.3 planet.glb --transform
 Files: planet.glb [5.9MB] > C:\Users\ELOHOME LTD\Desktop\Projects\linux-proj\linuxport\public\planet-transformed.glb [3.6MB] (39%)
 */
 
-import React from 'react'
-import { useGLTF, useAnimations } from '@react-three/drei'
+import React, {useEffect} from 'react'
+import {useGLTF, useAnimations, OrbitControls} from '@react-three/drei'
 
-export function Model(props) {
+export default function Planet(props) {
   const group = React.useRef()
   const { nodes, materials, animations } = useGLTF('/planet-transformed.glb')
   const { actions } = useAnimations(animations, group)
+
+  useEffect(() => {
+    // Play all animations
+    Object.values(actions).forEach(action => {
+      if (action) {
+        action.play();
+      }
+    });
+
+    // Cleanup animations when component unmounts
+    return () => {
+      Object.values(actions).forEach(action => {
+        if (action) {
+          action.stop();
+        }
+      });
+    };
+  }, [actions]);
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group} {...props} dispose={null} position={[0, -15,0]}
+           scale={0.4}
+           rotation={[Math.PI, -1.395, Math.PI]}>
       <group name="Crater">
         <group name="group" position={[-47.5, 24.972, -39]} scale={0.25}>
           <group name="pSphere2" rotation={[0, 0.834, 0]} scale={1.9}>
@@ -47,10 +67,16 @@ export function Model(props) {
         <mesh name="navMesh" geometry={nodes.navMesh.geometry} material={nodes.navMesh.material} position={[0, 0.005, 0]} />
         <mesh name="trimesh" geometry={nodes.trimesh.geometry} material={nodes.trimesh.material} position={[0, 0.005, 0]} />
         <mesh name="pCylinder10_phong11_0" geometry={nodes.pCylinder10_phong11_0.geometry} material={materials.phong11} position={[-47.5, 24.972, -39]} scale={0.25} />
-        <mesh name="pSphere1_phong1_0" geometry={nodes.pSphere1_phong1_0.geometry} material={materials.phong1} position={[-47.5, 24.972, -39]} scale={27.5} />
+        <mesh name="pSphere1_phong1_0" geometry={nodes.pSphere1_phong1_0.geometry} material={materials.phong1} position={[-47.5, 24.972, -39]} scale={35} />
       </group>
+      <OrbitControls
+          enableZoom={false}
+          enablePan={false}
+          autoRotate
+          autoRotateSpeed={0.5}
+      />
     </group>
   )
 }
 
-useGLTF.preload('/planet-transformed.glb')
+useGLTF.preload('/planet.glb')

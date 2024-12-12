@@ -9,7 +9,8 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme} from "./components/ui/themeprovider.tsx";
 import UserProfile from "./components/user-profile.tsx";
 import {Canvas} from "@react-three/fiber";
-import MoonLight from '../public/Moon.jsx'
+// import MoonLight from '../public/Moon.jsx'
+import Planet from '../public/Planet.jsx'
 import {Suspense} from "react";
 
 
@@ -58,7 +59,8 @@ const App = () => {
                 <pointLight position={[10, 10, 10]} />
 
                 <Suspense fallback={null}>
-                    <MoonLight/>
+                    {/*<MoonLight/>*/}
+                    <Planet/>
                 </Suspense>
             </Canvas>
 
