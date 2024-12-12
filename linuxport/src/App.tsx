@@ -8,10 +8,8 @@ import { Button } from "./components/ui/button.tsx";
 import { Moon, Sun } from "lucide-react";
 import { useTheme} from "./components/ui/themeprovider.tsx";
 import UserProfile from "./components/user-profile.tsx";
-import {Canvas} from "@react-three/fiber";
-// import MoonLight from '../public/Moon.jsx'
-import Planet from '../public/Planet.jsx'
-import {Suspense} from "react";
+
+
 
 
 const App = () => {
@@ -43,26 +41,7 @@ const App = () => {
                 </DropdownMenu>
             </header>
 
-            {/* 3D Canvas with Moon Background */}
-            <Canvas
-                style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    zIndex: -1
-                }}
-                camera={{ position: [0, 0, 10], fov: 75 }}
-            >
-                <ambientLight intensity={2} />
-                <pointLight position={[10, 10, 10]} />
-
-                <Suspense fallback={null}>
-                    {/*<MoonLight/>*/}
-                    <Planet/>
-                </Suspense>
-            </Canvas>
+    
 
             {/* Main Content */}
             <main className="relative z-10 flex justify-center items-center min-h-screen">
