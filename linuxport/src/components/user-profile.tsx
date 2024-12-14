@@ -31,12 +31,13 @@ const UserProfile: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+    const API_BASE_URL = 'http://localhost:3000/api/';
 
     useEffect(() => {
         // Fetch user data from the backend API
         const fetchUserData = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/api/users");
+                const response = await axios.get(`${API_BASE_URL}users`);
                 console.log(response.data);
                 setUserData(response.data);
                 setLoading(false);

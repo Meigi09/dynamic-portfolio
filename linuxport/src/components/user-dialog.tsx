@@ -18,6 +18,7 @@ const UserDialog = ({
 }) => {
     const { toast } = useToast();
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const API_BASE_URL = 'http://localhost:3000/api/';
     const [formData, setFormData] = useState({
         profilePicture: null as File | null,
         fullName: "",
@@ -119,7 +120,7 @@ const UserDialog = ({
             }
 
             // Send data to backend
-            const response = await axios.post('http://localhost:3000/api/users', submitData, {
+            const response = await axios.post(`${API_BASE_URL}users`, submitData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
